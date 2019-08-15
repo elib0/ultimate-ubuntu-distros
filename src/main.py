@@ -113,11 +113,20 @@ class Main:
 
         print(
             emoji.emojize(
-  """
-  :exclamation: ADVERTENCIA: este script descarga gran parte de los paquetes de sus paginas oficiales,
-  por lo tanto no se garantiza que esten actualizados al dia; Sin embargo los paquetes
-  agregan sus repositorios oficiales por lo tanto mediante un simple \'apt upgrade\' se actualizaran.   
-  """, use_aliases=True
+    """
+    :question: Scrip en python y partes en bash para personalizar Linux Mint 19.2, 
+    también deberia funcionar correctamebnte con los deribados de Ubuntu 18.04    
+    """, use_aliases=True
+            )
+        )
+
+        print(
+            emoji.emojize(
+    """
+    :exclamation: ADVERTENCIA: este script descarga gran parte de los paquetes de sus paginas oficiales,
+    por en consecuencia no se garantiza que esten actualizados al dia; Sin embargo los paquetes
+    agregan sus repositorios oficiales PPA por lo tanto mediante un simple \'apt upgrade\' se actualizaran.   
+    """, use_aliases=True
             )
         )
 
