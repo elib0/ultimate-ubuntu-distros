@@ -4,6 +4,7 @@ import subprocess
 from pprint import pprint
 from PyInquirer import style_from_dict, Token, prompt, Separator
 from pyfiglet import Figlet
+import emoji
 
 # Themes from PyInquirer
 from examples import custom_style_3 as style3
@@ -109,6 +110,16 @@ class Main:
         subprocess.call('clear')
         f = Figlet(font='slant')
         print(f.renderText('by: elib0'))
+
+        print(
+            emoji.emojize(
+  """
+  :exclamation: ADVERTENCIA: este script descarga gran parte de los paquetes de sus paginas oficiales,
+  por lo tanto no se garantiza que esten actualizados al dia; Sin embargo los paquetes
+  agregan sus repositorios oficiales por lo tanto mediante un simple \'apt upgrade\' se actualizaran.   
+  """, use_aliases=True
+            )
+        )
 
         # Menu
         answers = prompt(self.questions, style=style3)
