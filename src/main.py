@@ -14,16 +14,21 @@ class Main:
     def dict_to_choices(dict):
         choices = []
         for (key, value) in dict.items():
+            checked = False
             if 'checked' in value:
                 checked =  value['checked']
-            else:
-                checked = False
             choices.append({'name': key, 'checked': checked})
 
         return choices
 
+    selection = [
+        'make', 'build-essential', 'git', 'libssl-dev', 'zlib1g-dev', 'libbz2-dev', 'libreadline-dev',
+        'libsqlite3-dev', 'wget', 'curl', 'llvm', 'libncurses5-dev', 'libncursesw5-dev', 'xz-utils', 'tk-dev', 'libffi-dev'
+    ]
+
     APPLICATIONS = {
         'UTILES': {
+            'vim': {'name': 'vim', 'checked': True},
             'openshot': {'name': 'openshot'},
             'plank': {'name': 'plank', 'checked': True},
             'variety': {'name': 'variety', 'checked': True, 'script': 'install-variety.sh'},
@@ -53,12 +58,15 @@ class Main:
         },
         'DEVELOPER': {
             'Visual Studio Code(Stable Channel)': {'name': None, 'checked': True},
-            'Sublime Text 3(Stable Channel)': {'name': 'sublime-text', 'checked': True},
+            'Sublime Text 3(Stable Channel)': {'name': 'sublime-text', 'checked': True, 'script': 'install-sublime-text.sh'},
             'Node Version Manager': {'name': None},
             'Python version management': {'name': None},
             'Apache 2': {'name': None},
             'Php 7.2 (Con extensiones importantes)': {'name': None},
             'MySQL': {'name': None, 'checked': True},
+        },
+        'THEMING': {
+
         }
     }
     questions = [

@@ -4,7 +4,7 @@
 # Fuentes para que se vea bien el tema agnoster
 sudo apt-get install fonts-powerline
 
-sudo apt-get install zsh git wget -y
+sudo apt-get install zsh -y
 wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
 
 # changing the theme to agnoster
