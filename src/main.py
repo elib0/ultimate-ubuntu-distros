@@ -131,8 +131,8 @@ class Main:
             emoji.emojize(
     """
     :exclamation: ADVERTENCIA: este script descarga gran parte de los paquetes de sus paginas oficiales,
-    por en consecuencia no se garantiza que esten actualizados al dia; Sin embargo los paquetes
-    agregan sus repositorios oficiales PPA por lo tanto mediante un simple \'apt upgrade\' se actualizaran.   
+    en consecuencia no se garantiza que estén actualizados al dia; Sin embargo los paquetes
+    agregan sus repositorios oficiales PPA por lo tanto mediante un simple \'apt upgrade\' se actualizaran.
     """, use_aliases=True
             )
         )
