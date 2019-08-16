@@ -11,49 +11,56 @@ from examples import custom_style_3 as style3
 
 
 class Main:
-    APT_PREFIX = 'apt'
-    COMMANDS_APT = {'upd': 'update', 'upg': 'upgrade', 'ins': 'install', 'rmv': 'remove'}
-    UTILES_CHOICES = [
-        Separator('UTILARIOS'),
-        {'name': 'openshot'},
-        {'name': 'plank', 'checked': True},
-        {'name': 'ppa-purge', 'checked': True},
-        {'name': 'shutter'},
-        {'name': 'synapse', 'checked': True},
-        {'name': 'dconf-tools', 'checked': True},
-    ]
-    COMPRESION_CHOCIES = [
-        Separator('COMPRESION'),
-        {'name': 'p7zip-rar', 'checked': True},
-        {'name': 'p7zip-full', 'checked': True},
-        {'name': 'unace', 'checked': True},
-        {'name': 'unrar', 'checked': True},
-        {'name': 'zip', 'checked': True},
-        {'name': 'unzip', 'checked': True},
-        {'name': 'sharutils', 'checked': True},
-        {'name': 'rar', 'checked': True},
-        {'name': 'uudeview', 'checked': True},
-        {'name': 'mpack', 'checked': True},
-        {'name': 'arj', 'checked': True},
-        {'name': 'cabextract', 'checked': True},
-        {'name': 'file-roller', 'checked': True},
-    ]
-    BROWSER_CHOICES = [
-        Separator('Navegadores'),
-        {'name': 'Google Chrome(Stable Channel)', 'checked': True},
-        {'name': 'Opera Browser(Stable Channel)', 'checked': True},
-        {'name': 'Vilvadi Browser(Stable Channel)'},
-    ]
-    DEVELOPER_CHOICES = [
-        Separator('Desarrollo'),
-        {'name': 'Visual Studio Code(Stable Channel)', 'checked': True},
-        {'name': 'Sublime Text 3(Stable Channel)', 'checked': True},
-        {'name': 'Node Version Manager'},
-        {'name': 'Python version management'},
-        {'name': 'Apache 2', 'checked': True},
-        {'name': 'Php 7.2 (Con extensiones importantes)', 'checked': True},
-        {'name': 'MySQL', 'checked': True},
-    ]
+    def dict_to_choices(dict):
+        choices = []
+        for (key, value) in dict.items():
+            if 'checked' in value:
+                checked =  value['checked']
+            else:
+                checked = False
+            choices.append({'name': key, 'checked': checked})
+
+        return choices
+
+    APPLICATIONS = {
+        'UTILES': {
+            'openshot': {'name': 'openshot'},
+            'plank': {'name': 'plank', 'checked': True},
+            'variety': {'name': 'variety', 'checked': True, 'script': 'install-variety.sh'},
+            'ppa-purge': {'name': 'ppa-purge', 'checked': True},
+            'shutter': {'name': 'shutter'},
+            'dconf-tools': {'name': 'dconf-tools', 'checked': True}
+        },
+        'COMPRESION': {
+            'p7zip-rar': {'name': 'p7zip-rar', 'checked': True},
+            'p7zip-full': {'name': 'p7zip-full', 'checked': True},
+            'unace': {'name': 'unace', 'checked': True},
+            'unrar': {'name': 'unrar', 'checked': True},
+            'zip': {'name': 'zip', 'checked': True},
+            'unzip': {'name': 'unzip', 'checked': True},
+            'sharutils': {'name': 'sharutils', 'checked': True},
+            'rar': {'name': 'rar', 'checked': True},
+            'uudeview': {'name': 'uudeview', 'checked': True},
+            'mpack': {'name': 'mpack', 'checked': True},
+            'arj': {'name': 'arj', 'checked': True},
+            'cabextract': {'name': 'cabextract', 'checked': True},
+            'file-roller': {'name': 'file-roller', 'checked': True}
+        },
+        'BROWSERS': {
+            'Google Chrome(Stable Channel)': {'name': None, 'checked': True, 'script': 'install-google-chrome.sh'},
+            'Opera Browser(Stable Channel)': {'name': None, 'checked': True, 'script': 'install-opera.sh'},
+            'Vilvadi Browser(Stable Channel)': {'name': 'vivaldi-stable', 'script': 'install-vivaldi.sh'}
+        },
+        'DEVELOPER': {
+            'Visual Studio Code(Stable Channel)': {'name': None, 'checked': True},
+            'Sublime Text 3(Stable Channel)': {'name': 'sublime-text', 'checked': True},
+            'Node Version Manager': {'name': None},
+            'Python version management': {'name': None},
+            'Apache 2': {'name': None},
+            'Php 7.2 (Con extensiones importantes)': {'name': None},
+            'MySQL': {'name': None, 'checked': True},
+        }
+    }
     questions = [
         {
             'type': 'confirm',
@@ -64,7 +71,7 @@ class Main:
             'type': 'checkbox',
             'name': 'utiles',
             'message': '¿Que Utilidades deseas instalar?',
-            'choices': UTILES_CHOICES,
+            'choices': dict_to_choices(APPLICATIONS['UTILES']),
             'when': lambda answers: answers['utiles']
         },
         {
@@ -76,7 +83,7 @@ class Main:
             'type': 'checkbox',
             'name': 'compressors',
             'message': '¿Que Des/Compresores deseas instalar?',
-            'choices': COMPRESION_CHOCIES,
+            'choices': dict_to_choices(APPLICATIONS['COMPRESION']),
             'when': lambda answers: answers['compressors']
         },
         {
@@ -88,7 +95,7 @@ class Main:
             'type': 'checkbox',
             'name': 'browsers',
             'message': '¿Que Navegadores Web deseas instalar?',
-            'choices': BROWSER_CHOICES,
+            'choices': dict_to_choices(APPLICATIONS['BROWSERS']),
             'when': lambda answers: answers['browsers']
         },
         {
@@ -100,7 +107,7 @@ class Main:
             'type': 'checkbox',
             'name': 'develop',
             'message': '¿Que herramientas de desarrollo deseas instalar?',
-            'choices': DEVELOPER_CHOICES,
+            'choices': dict_to_choices(APPLICATIONS['DEVELOPER']),
             'when': lambda answers: answers['develop']
         }
     ]
@@ -114,7 +121,7 @@ class Main:
         print(
             emoji.emojize(
     """
-    :question: Scrip en python y partes en bash para personalizar Linux Mint 19.2, 
+    :question: Scrip para personalizar Linux Mint 19.2,
     también deberia funcionar correctamebnte con los deribados de Ubuntu 18.04    
     """, use_aliases=True
             )
