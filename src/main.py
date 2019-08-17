@@ -1,14 +1,13 @@
 from __future__ import print_function, unicode_literals
-import os
 import subprocess
 from pprint import pprint
+from colors import * # ANSI colors
 from PyInquirer import style_from_dict, Token, prompt, Separator
 from pyfiglet import Figlet
 import emoji
 
 # Themes from PyInquirer
 from examples import custom_style_3 as style3
-
 
 class Main:
     def dict_to_choices(dict):
@@ -21,7 +20,6 @@ class Main:
 
         return choices
 
-    sh_list = []
     apt_list = [
         'make', 'build-essential', 'git', 'libssl-dev', 'zlib1g-dev', 'libbz2-dev', 'libreadline-dev',
         'libsqlite3-dev', 'wget', 'curl', 'llvm', 'libncurses5-dev', 'libncursesw5-dev', 'xz-utils', 'tk-dev', 'libffi-dev'
@@ -67,7 +65,7 @@ class Main:
             'MySQL': {'checked': True},
         },
         'THEMING': {
-
+            # TODO: Falta el themin y cusomization
         }
     }
     questions = [
@@ -123,58 +121,47 @@ class Main:
 
     def run(self):
 
-        # Limpia pantalla y muestra info del programa
-        def show_info():
-            subprocess.call('clear')
-            f = Figlet(font='slant')
-            print(f.renderText('by: elib0'))
-
-            print(
-                emoji.emojize(
-    """
-    :question: Scrip para personalizar Linux Mint 19.2,
-    también deberia funcionar correctamebnte con los deribados de Ubuntu 18.04    
-    """, use_aliases=True
-                )
-            )
-
-            print(
-                emoji.emojize(
-    """
-    :exclamation: ADVERTENCIA: este script descarga gran parte de los paquetes de sus paginas oficiales,
-    en consecuencia no se garantiza que estén actualizados al dia; Sin embargo los paquetes
-    agregan sus repositorios oficiales PPA por lo tanto mediante un simple:
-    \'apt upgrade\' se actualizaran.
-    """, use_aliases=True
-                )
-            )
-            print(
-                emoji.emojize(
-                    """
-    TWITTER: https://twitter.com/elib0
-    GITHUB: https://github.com/elib0
-    GITLAB: https://gitlab.com/elib0
-    Code with :heart: and :coffee:
-                    """, use_aliases=True
-                )
-            )
-
         def process_selection(answers):
             program_list_selected_apt = ''
             program_list_selected_sh = []
             for cat in answers.keys():
                 # program_list_selected = ' '.join(str(a) for a in answers[k])
-                for app in answers[cat]:
-                    if app in self.APPLICATIONS[cat]:
-                        # Primero corremos los sh por que algunos tienen PPAs nada mas
-                        if 'script' in self.APPLICATIONS[cat][app]:
-                            program_list_selected_sh.append(self.APPLICATIONS[cat][app]['script'])
+                if isinstance(self.APPLICATIONS[cat], list):
+                    for app in answers[cat]:
+                        if app in self.APPLICATIONS[cat]:
+                            # Primero corremos los sh por que algunos tienen PPAs nada mas
+                            if 'script' in self.APPLICATIONS[cat][app]:
+                                program_list_selected_sh.append(self.APPLICATIONS[cat][app]['script'])
 
-                        if 'apt' in self.APPLICATIONS[cat][app]:
-                            program_list_selected_apt += self.APPLICATIONS[cat][app]['apt'] + ' '
+                            if 'apt' in self.APPLICATIONS[cat][app]:
+                                program_list_selected_apt += self.APPLICATIONS[cat][app]['apt'] + ' '
 
 
             return program_list_selected_apt, program_list_selected_sh
+
+        # Limpia pantalla y muestra info del programa
+        def show_info():
+            subprocess.call('clear')
+            f = Figlet(font='slant')
+
+            print(emoji.emojize( f"""
+    {f.renderText('by: elib0')}
+    :question: Scrip para personalizar Linux Mint 19.2,
+    también debería funcionar correctamente con los derivados de Ubuntu 18.04.""", use_aliases=True))
+
+            print( emoji.emojize(f"""
+    :exclamation: {color('ADVERTENCIA', 'red')}: este script descarga parte de los paquetes de sus paginas oficiales,
+    en consecuencia no se garantiza que estén actualizados al dia; Sin embargo los paquetes
+    agregan sus repositorios oficiales PPA por lo tanto mediante un simple:
+    \'apt upgrade\' se actualizaran.""", use_aliases=True))
+
+            print (f"""
+    {color('TWITTER: ', '#1da1f2')}https://twitter.com/elib0
+    {color('GITLAB:  ', '#e24329')}https://gitlab.com/elib0
+    {color('GITHUB:  ', '#fff')}https://github.com/elib0
+    {emoji.emojize('Code with :heart: and :coffee:', use_aliases=True)}
+            """)  # Using string Interpolation / f-Strings Python 3.6+
+
         # Inicio del script
         show_info()
 
@@ -188,10 +175,14 @@ class Main:
         answers = prompt(self.questions, style=style3)
         apts, scripts = process_selection(answers)
         # sh
-        pprint(scripts)
+        if (len(scripts) > 0):
+            pprint(scripts) #TODO: Faltan recorrer los ssh
         # apt-get
-        subprocess.call('sudo apt-get update', shell=True) # Ya se agregaron los repos nuevos actualizamos para poder instalar
-        subprocess.call('sudo apt-get install ' + apts, shell=True) # Instala dependencias necesarias para continuar con los demas
+        if (len(apts) > 0):
+            # Ya se agregaron los repos nuevos actualizamos para poder instalar
+            subprocess.call('sudo apt-get update', shell=True)
+            # Instala dependencias necesarias para continuar con los demas
+            subprocess.call('sudo apt-get install ' + apts, shell=True)
 
 # Inicio del CLi
 Main().run()
