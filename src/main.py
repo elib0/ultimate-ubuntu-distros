@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from __future__ import print_function, unicode_literals
 import subprocess, sys, os, json
 from pprint import pprint
