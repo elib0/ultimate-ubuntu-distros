@@ -1,6 +1,31 @@
 
-### REQUIRES LIBRARIES
-`pip install PyInquirer emoji ansicolors pyfiglet`
+### Librerías requeridas:
+~~~
+pip install PyInquirer emoji ansicolors pyfiglet
+~~~
  
-#### USING
- `>python src/main.py`
+#### Como usar:
+~~~
+>python src/main.py
+~~~
+ 
+#### Archivos de configuración
+- ##### default.txt(OPCIONAL):
+    Archivo de texto simple que contiene los paquetes que son requeridos para el proceso de instalación, **Ej: make**.
+    Están separados por un salto de linea *"\n"*. Estos paquetes se instalan automáticamente al iniciar el script.
+- ##### menu.json:
+    Archivo en formato json que contiene el diccionario de las aplicaciones del menu.
+    estas aplicaciones pueden ser instaladas por `apt-get` o por `sh`.
+    La estructura de un elemento del menu es la siguiente:
+    ~~~
+    "<NombreCategoria>": {
+        "Nombre a mostar": {"apt": "vim", ["checked": true]},
+        "Ej: variety": {["apt": "variety"], "script": "install-variety.sh"}
+    }
+    ~~~
+  
+  > Propiedad **apt** es opcional, se usa si se va a correr un paquete por `sudo apt-get` si no tomara la propiedad script.
+
+  > Propiedad **checked** es opcional, se usa instalación por defecto, `default: False`
+
+  > Propiedad **script** es opcional, se usa para correr un script mediante `sudo sh` se puede usar en conjunto con la propiedad **apt** y ambos comandos serán ejecutados.
