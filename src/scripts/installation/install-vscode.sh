@@ -8,5 +8,5 @@ sudo dpkg -i /tmp/vscode-stable_current_amd64.deb
 rm /tmp/vscode-stable_current_amd64.deb
 
 echo "################################################################"
-echo "#################  Visual Studio Code installed ################"
+echo "#################  Visual Studio Code instalado ################"
 echo "################################################################"

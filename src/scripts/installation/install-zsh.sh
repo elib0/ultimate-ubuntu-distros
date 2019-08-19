@@ -15,22 +15,30 @@ sudo sed -i 's/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"agnoster\"/g' ~/.zshrc
 # go find the hidden .zshrc file and look for ZSH_THEME="robbyrussell" (CTRL+H to find hidden files)
 # change this to ZSH_THEME="random"
 
-#TODO: Aplicar zsh automaticamente: sudo chsh $USER -s /bin/zsh
+# Plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# Activando plugins linea a cambiar
+#plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+# Establece la consola ZSH por defecto
+sudo chsh $USER -s /bin/zsh
 echo
 echo
-echo
+#echo
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "This is for the script of ZSH - Colouring of your terminal"
-echo "You do not get the chance to type your password"
-echo "Retype this line again and fill in your own username"
-echo "sudo chsh username -s /bin/zsh, Ex: $USER"
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo
-echo
-echo "Log off or reboot to see the change in your terminal".
+#echo "This is for the script of ZSH - Colouring of your terminal"
+#echo "You do not get the chance to type your password"
+#echo "Retype this line again and fill in your own username"
+#echo "sudo chsh username -s /bin/zsh, Ex: $USER"
+#echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+#echo
+#echo
+echo "Cirra sesion o reinicia para que la nueva consola tenga efecto".
 echo "----------------------------------------------------"
 
 
 echo "################################################################"
-echo "###################    zsh installed     ######################"
+echo "###################    zsh instalada     ######################"
 echo "################################################################"

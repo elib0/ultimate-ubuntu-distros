@@ -1,4 +1,5 @@
 from __future__ import print_function, unicode_literals
+import sys, os
 import subprocess
 from pprint import pprint
 from colors import * # ANSI colors
@@ -10,6 +11,13 @@ import emoji
 from examples import custom_style_3 as style3
 
 class Main:
+    def read_default_apps(self):
+        path = os.path.dirname(os.path.realpath(sys.argv[0])) # Path to script
+        f = open(path + '/default.txt', 'r')
+        lines = [line.replace('\n', '') for line in f.readlines()] # Remplazo final de linea '\n' con ''
+        f.close()
+        return lines
+
     def dict_to_choices(dict):
         choices = []
         for (key, value) in dict.items():
@@ -19,11 +27,6 @@ class Main:
             choices.append({'name': key, 'checked': checked})
 
         return choices
-
-    apt_list = [
-        'make', 'build-essential', 'git', 'libssl-dev', 'zlib1g-dev', 'libbz2-dev', 'libreadline-dev',
-        'libsqlite3-dev', 'wget', 'curl', 'llvm', 'libncurses5-dev', 'libncursesw5-dev', 'xz-utils', 'tk-dev', 'libffi-dev'
-    ]
 
     APPLICATIONS = {
         'utiles': {
@@ -166,7 +169,7 @@ class Main:
         show_info()
 
         # Instalar librerías necesarias para el script
-        program_list_selected = ' '.join(str(a) for a in self.apt_list)
+        program_list_selected = ' '.join(str(a) for a in self.read_default_apps())
         subprocess.call('sudo apt-get update', shell=True)
         subprocess.call('sudo apt-get upgrade', shell=True)
         subprocess.call('sudo apt-get install ' + program_list_selected, shell=True) # Instala dependencias necesarias para continuar con los demas

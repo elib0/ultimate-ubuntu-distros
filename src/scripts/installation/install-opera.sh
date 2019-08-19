@@ -10,5 +10,5 @@ sudo dpkg -i /tmp/opera-stable_current_amd64.deb
 rm /tmp/opera-stable_current_amd64.deb
 
 echo "################################################################"
-echo "####################  opera browser installed ##################"
+echo "####################  opera browser instalado ##################"
 echo "################################################################"
