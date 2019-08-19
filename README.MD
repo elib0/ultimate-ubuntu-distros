@@ -1,12 +1,6 @@
 
 ### REQUIRES LIBRARIES
-`pip install PyInquirer`
-
-`pip install emoji`
-
-`pip install ansicolors`
-
-`pip install pyfiglet`
+`pip install PyInquirer emoji ansicolors pyfiglet`
  
 #### USING
  `>python src/main.py`
