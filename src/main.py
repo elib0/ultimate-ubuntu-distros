@@ -1,6 +1,5 @@
 from __future__ import print_function, unicode_literals
-import sys, os
-import subprocess
+import subprocess, sys, os, json
 from pprint import pprint
 from colors import * # ANSI colors
 from PyInquirer import style_from_dict, Token, prompt, Separator
@@ -12,11 +11,24 @@ from examples import custom_style_3 as style3
 
 class Main:
     def read_default_apps(self):
-        path = os.path.dirname(os.path.realpath(sys.argv[0])) # Path to script
-        f = open(path + '/default.txt', 'r')
-        lines = [line.replace('\n', '') for line in f.readlines()] # Remplazo final de linea '\n' con ''
-        f.close()
+        name = 'default.txt'
+        path = os.path.dirname(os.path.realpath(sys.argv[0]))  # Path to script
+        # Si borran el archivo o x
+        lines = [
+            'make', 'build-essential', 'git', 'libssl-dev', 'zlib1g-dev', 'libbz2-dev', 'libreadline-dev',
+            'libsqlite3-dev', 'wget', 'curl', 'llvm', 'libncurses5-dev', 'libncursesw5-dev', 'xz-utils', 'tk-dev', 'libffi-dev'
+        ]
+        if os.path.exists(f"{path}/{name}"):
+            f = open(f"{path}/{name}", 'r')
+            lines = [line.replace('\n', '') for line in f.readlines()] # Remplazo final de linea '\n' con ''
+            f.close()
         return lines
+
+    def read_menu(self):
+        name = 'menu.json'
+        path = os.path.dirname(os.path.realpath(sys.argv[0]))  # Path to script
+        f = open(f"{path}/{name}", 'r')
+        return json.load(f)
 
     def dict_to_choices(dict):
         choices = []
@@ -28,49 +40,7 @@ class Main:
 
         return choices
 
-    APPLICATIONS = {
-        'utiles': {
-            'vim': {'apt': 'vim', 'checked': True},
-            'openshot': {'apt': 'openshot'},
-            'plank': {'apt': 'plank', 'checked': True},
-            'variety': {'apt': 'variety', 'checked': True, 'script': 'install-variety.sh'},
-            'ppa-purge': {'apt': 'ppa-purge', 'checked': True},
-            'shutter': {'apt': 'shutter'},
-            'dconf-tools': {'apt': 'dconf-tools', 'checked': True}
-        },
-        'compressors': {
-            'p7zip-rar': {'apt': 'p7zip-rar', 'checked': True},
-            'p7zip-full': {'apt': 'p7zip-full', 'checked': True},
-            'unace': {'apt': 'unace', 'checked': True},
-            'unrar': {'apt': 'unrar', 'checked': True},
-            'zip': {'apt': 'zip', 'checked': True},
-            'unzip': {'apt': 'unzip', 'checked': True},
-            'sharutils': {'apt': 'sharutils', 'checked': True},
-            'rar': {'apt': 'rar', 'checked': True},
-            'uudeview': {'apt': 'uudeview', 'checked': True},
-            'mpack': {'apt': 'mpack', 'checked': True},
-            'arj': {'apt': 'arj', 'checked': True},
-            'cabextract': {'apt': 'cabextract', 'checked': True},
-            'file-roller': {'apt': 'file-roller', 'checked': True}
-        },
-        'browsers': {
-            'Google Chrome(Stable Channel)': {'checked': True, 'script': 'install-google-chrome.sh'},
-            'Opera Browser(Stable Channel)': {'checked': True, 'script': 'install-opera.sh'},
-            'Vilvadi Browser(Stable Channel)': {'apt': 'vivaldi-stable', 'script': 'install-vivaldi.sh'}
-        },
-        'develop': {
-            'Visual Studio Code(Stable Channel)': {'checked': True},
-            'Sublime Text 3(Stable Channel)': {'apt': 'sublime-text', 'checked': True, 'script': 'install-sublime-text.sh'},
-            'Node Version Manager': {'apt': None},
-            'Python version management': {'apt': None},
-            'Apache 2': {'apt': None},
-            'Php 7.2 (Con extensiones importantes)': {'apt': None},
-            'MySQL': {'checked': True},
-        },
-        'THEMING': {
-            # TODO: Falta el themin y cusomization
-        }
-    }
+    APPLICATIONS = read_menu(None)
     questions = [
         {
             'type': 'confirm',

@@ -1,0 +1,41 @@
+{
+        "utiles": {
+            "vim": {"apt": "vim", "checked": true},
+            "openshot": {"apt": "openshot"},
+            "plank": {"apt": "plank", "checked": true},
+            "variety": {"apt": "variety", "checked": true, "script": "install-variety.sh"},
+            "ppa-purge": {"apt": "ppa-purge", "checked": true},
+            "shutter": {"apt": "shutter"},
+            "dconf-tools": {"apt": "dconf-tools", "checked": true}
+        },
+        "compressors": {
+            "p7zip-rar": {"apt": "p7zip-rar", "checked": true},
+            "p7zip-full": {"apt": "p7zip-full", "checked": true},
+            "unace": {"apt": "unace", "checked": true},
+            "unrar": {"apt": "unrar", "checked": true},
+            "zip": {"apt": "zip", "checked": true},
+            "unzip": {"apt": "unzip", "checked": true},
+            "sharutils": {"apt": "sharutils", "checked": true},
+            "rar": {"apt": "rar", "checked": true},
+            "uudeview": {"apt": "uudeview", "checked": true},
+            "mpack": {"apt": "mpack", "checked": true},
+            "arj": {"apt": "arj", "checked": true},
+            "cabextract": {"apt": "cabextract", "checked": true},
+            "file-roller": {"apt": "file-roller", "checked": true}
+        },
+        "browsers": {
+            "Google Chrome(Stable Channel)": {"checked": true, "script": "install-google-chrome.sh"},
+            "Opera Browser(Stable Channel)": {"checked": true, "script": "install-opera.sh"},
+            "Vilvadi Browser(Stable Channel)": {"apt": "vivaldi-stable", "script": "install-vivaldi.sh"}
+        },
+        "develop": {
+            "Visual Studio Code(Stable Channel)": {"checked": true},
+            "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "install-sublime-text.sh"},
+            "Node Version Manager": {"apt": false},
+            "Python version management": {"apt": false},
+            "Apache 2": {"apt": false},
+            "Php 7.2 (Con extensiones importantes)": {"apt": false},
+            "MySQL": {"checked": true}
+        },
+        "THEMING": {}
+    }
