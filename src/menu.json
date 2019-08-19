@@ -31,6 +31,7 @@
         "develop": {
             "Visual Studio Code(Stable Channel)": {"checked": true},
             "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "install-sublime-text.sh"},
+            "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "script": "install-sublime-text.sh"},
             "Node Version Manager": {"apt": false},
             "Python version management": {"apt": false},
             "Apache 2": {"apt": false},

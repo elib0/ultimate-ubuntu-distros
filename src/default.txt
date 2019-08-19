@@ -14,3 +14,4 @@ libncursesw5-dev
 xz-utils
 tk-dev
 libffi-dev
+apt-transport-https
