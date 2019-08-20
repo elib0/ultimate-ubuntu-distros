@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 from __future__ import print_function, unicode_literals
 import subprocess, sys, os, json
 from pprint import pprint

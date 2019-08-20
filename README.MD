@@ -6,7 +6,8 @@ pip install PyInquirer emoji ansicolors pyfiglet
  
 #### Como usar:
 ~~~
->python src/main.py
+> chmod +x first_step.sh #permiso de ejecucion
+> ./first_step.sh
 ~~~
  
 #### Archivos de configuración
@@ -24,8 +25,8 @@ pip install PyInquirer emoji ansicolors pyfiglet
     }
     ~~~
   
-  > Propiedad **apt** es opcional, se usa si se va a correr un paquete por `sudo apt-get` si no tomara la propiedad script.
+  > Propiedad **apt** es opcional, se usa si se va a correr un paquete por `sudo apt-get` si no tomara la propiedad **script**.
 
   > Propiedad **checked** es opcional, se usa instalación por defecto, `default: False`
 
-  > Propiedad **script** es opcional, se usa para correr un script mediante `sudo sh` se puede usar en conjunto con la propiedad **apt** y ambos comandos serán ejecutados.
+  > Propiedad **script** es opcional, se usa para correr un script **_".sh"_** mediante `sudo sh` se puede usar en conjunto con la propiedad **apt** y ambos comandos serán ejecutados.

@@ -14,17 +14,25 @@ source ~/.zshrc
 
 # Clonadno plugin para enviroments y ultima version python
 git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv ~/.pyenv/plugins
-git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/plugins/pyenv-install-latest
+#git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/plugins/pyenv-install-latest
 
 
-# Variables de entorno
+# Variables de entorno plugins
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
 
 # Recargamos configuracion de oh-my-zsh
 source ~/.zshrc
 
-# Instalamos ultima version de Python 3
-pyenv install-latest
+# Instalamos version 3.7.4 de Python
+pyenv install 3.7.4
+pyenv global 3.7.4 # la establecemos como predeterminada
+#pyenv install-latest
+
+# Recargamos configuracion de oh-my-zsh
+source ~/.zshrc
+
+# Requerimientos de main script
+# pip install PyInquirer emoji ansicolors pyfiglet
 
 echo "#########################################################################"
 echo "################# Python version management instalado ###################"
