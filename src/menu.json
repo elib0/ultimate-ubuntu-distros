@@ -2,11 +2,9 @@
         "utiles": {
             "vim": {"apt": "vim", "checked": true},
             "openshot": {"apt": "openshot"},
-            "plank": {"apt": "plank", "checked": true},
-            "variety": {"apt": "variety", "checked": true, "script": "install-variety.sh"},
             "ppa-purge": {"apt": "ppa-purge", "checked": true},
             "shutter": {"apt": "shutter"},
-            "dconf-tools": {"apt": "dconf-tools", "checked": true}
+            "aptitude": {"apt": "aptitude", "checked": true}
         },
         "compressors": {
             "p7zip-rar": {"apt": "p7zip-rar", "checked": true},
@@ -31,12 +29,19 @@
         "develop": {
             "Visual Studio Code(Stable Channel)": {"checked": true},
             "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "install-sublime-text.sh"},
-            "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "script": "install-sublime-text.sh"},
+            "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "checked": true, "script": "install-sublime-merge.sh"},
             "Node Version Manager": {"apt": false},
-            "Python version management": {"apt": false},
             "Apache 2": {"apt": false},
-            "Php 7.2 (Con extensiones importantes)": {"apt": false},
-            "MySQL": {"checked": true}
+            "Php 7.2 (Con extensiones)": {"apt": false},
+            "MySQL": {"Mysql Server 8.0":"mysql", "script": "install-mysql.sh"}
         },
-        "THEMING": {}
+        "customizing": {
+            "plank": {"apt": "plank"},
+            "variety": {"apt": "variety", "script": "install-variety.sh"},
+            "albert": {"apt": "albert", "script": "install-albert.sh"},
+            "Grub Customizer": {"apt": "grub-customizer", "script": "install-grub-customizer.sh"}
+        },
+        "gaming": {
+            "Steam": {"checked": true, "script": "install-steam.sh"}
+        }
     }

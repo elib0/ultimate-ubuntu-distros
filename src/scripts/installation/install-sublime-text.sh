@@ -1,5 +1,4 @@
 #!/bin/bash
-#
 
 # Installing the GPG key
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -51,10 +50,4 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 #		"Vuejs Snippets",
 #		"Vuetify"
 #	]
-
-##################################################################################################################
-
-echo "################################################################"
-echo "################      sublime text instalado    ################"
-echo "################################################################"
 

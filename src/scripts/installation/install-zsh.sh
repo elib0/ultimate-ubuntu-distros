@@ -1,5 +1,4 @@
 #!/bin/bash
-#
 
 # Fuentes para que se vea bien el tema agnoster
 sudo apt-get install fonts-powerline
@@ -21,35 +20,14 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 # Activando plugins y configuraciones varias
 #plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-## Nombre de usuario del prompt
-#DEFAULT_USER=`whoami`
-## PyEnv
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-##NVM
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_comletion
-
+# Nombre de usuario del prompt
+echo "DEFAULT_USER=`whoami`" >> ~/.zshrc
 
 # Establece la consola ZSH por defecto
 sudo chsh $USER -s /bin/zsh
-echo
-echo
-#echo
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-#echo "This is for the script of ZSH - Colouring of your terminal"
-#echo "You do not get the chance to type your password"
-#echo "Retype this line again and fill in your own username"
-#echo "sudo chsh username -s /bin/zsh, Ex: $USER"
-#echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-#echo
-#echo
-echo "Cirra sesion o reinicia para que la nueva consola tenga efecto".
-echo "----------------------------------------------------"
 
+# Recargamos configuracion de zsh
+source ~/.zshrc
 
 echo "################################################################"
 echo "###################    zsh instalada     ######################"
