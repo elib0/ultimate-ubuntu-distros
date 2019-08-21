@@ -15,8 +15,8 @@ class FirstStep:
             'make', 'build-essential', 'git', 'libssl-dev', 'zlib1g-dev', 'libbz2-dev', 'libreadline-dev',
             'libsqlite3-dev', 'wget', 'curl', 'llvm', 'libncurses5-dev', 'libncursesw5-dev', 'xz-utils', 'tk-dev', 'libffi-dev'
         ]
-        if os.path.exists(f"{path}/{name}"):
-            f = open(f"{path}/{name}", 'r')
+        if os.path.exists(path + "/" + name):
+            f = open(path + "/" + name)
             lines = [line.replace('\n', '') for line in f.readlines()] # Remplazo final de linea '\n' con ''
             f.close()
         return lines
