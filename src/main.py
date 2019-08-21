@@ -155,7 +155,7 @@ class Main:
         # sh
         if (len(scripts) > 0):
             for script in scripts:
-                subprocess.call(f"sh src/scripts/installation/{script}", shell=True)
+                subprocess.call(f"sh src/scripts/{script}", shell=True)
         # apt-get
         if (len(apts) > 0):
             # Ya se agregaron los repos nuevos actualizamos para poder instalar

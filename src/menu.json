@@ -24,12 +24,12 @@
         "browsers": {
             "Google Chrome(Stable Channel)": {"checked": true, "script": "install-google-chrome.sh"},
             "Opera Browser(Stable Channel)": {"checked": true, "script": "install-opera.sh"},
-            "Vilvadi Browser(Stable Channel)": {"apt": "vivaldi-stable", "script": "install-vivaldi.sh"}
+            "Vilvadi Browser(Stable Channel)": {"apt": "vivaldi-stable", "script": "addrepo-vivaldi.sh"}
         },
         "develop": {
-            "Visual Studio Code(Stable Channel)": {"checked": true},
-            "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "install-sublime-text.sh"},
-            "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "checked": true, "script": "install-sublime-merge.sh"},
+            "Visual Studio Code(Stable Channel)": {"checked": true, "script": "install-vscode.sh"},
+            "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "addrepo-sublime-text.sh"},
+            "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "checked": true, "script": "addrepo-sublime-merge.sh"},
             "Node Version Manager": {"apt": false},
             "Apache 2": {"apt": false},
             "Php 7.2 (Con extensiones)": {"apt": false},
@@ -37,9 +37,9 @@
         },
         "customizing": {
             "plank": {"apt": "plank"},
-            "variety": {"apt": "variety", "script": "install-variety.sh"},
-            "albert": {"apt": "albert", "script": "install-albert.sh"},
-            "Grub Customizer": {"apt": "grub-customizer", "script": "install-grub-customizer.sh"}
+            "variety": {"apt": "variety", "script": "addrepo-variety.sh"},
+            "albert": {"apt": "albert", "script": "addrepo-albert.sh"},
+            "Grub Customizer": {"apt": "grub-customizer", "script": "addrepo-grub-customizer.sh"}
         },
         "gaming": {
             "Steam": {"checked": true, "script": "install-steam.sh"}
