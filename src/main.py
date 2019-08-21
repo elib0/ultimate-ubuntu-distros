@@ -14,6 +14,12 @@ from examples import custom_style_3 as style3
 
 class Main:
 
+    def distro_info(self):
+        info = subprocess.check_output('lsb_release -a', shell=True)
+        info = str(info) # Convierto a string normal y no binario
+        info.replace('\\t', '')
+        return info.splitlines()
+
     def read_menu(self):
         path = os.path.dirname(os.path.realpath(sys.argv[0]))  # Path to script
         name = 'menu.json'

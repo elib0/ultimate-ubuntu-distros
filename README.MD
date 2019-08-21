@@ -1,11 +1,7 @@
-
-### Librerías requeridas:
+ #### Como usar:
 ~~~
-pip install PyInquirer emoji ansicolors pyfiglet
-~~~
- 
-#### Como usar:
-~~~
+> git clone git@gitlab.com:elib0/linux-mint-19.2-script.git
+> cd inux-mint-19.2-script
 > chmod +x first_step.sh #permiso de ejecucion
 > ./first_step.sh
 ~~~

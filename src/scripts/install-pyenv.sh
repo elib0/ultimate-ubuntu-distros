@@ -31,8 +31,9 @@ pyenv install 3.7.4
 pyenv global 3.7.4 # la establecemos como predeterminada
 #pyenv install-latest
 
-# Requerimientos de main.py script
-pip install PyInquirer emoji ansicolors pyfiglet
+# Requerimientos de main.py script ##REF: https://realpython.com/what-is-pip/
+#pip install PyInquirer emoji ansicolors pyfiglet
+pip install -r ../../requirements.txt #Instalamos con archivo de requerimientos del cli
 
 echo "#########################################################################"
 echo "################# Python version management instalado ###################"
