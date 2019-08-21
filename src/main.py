@@ -64,6 +64,18 @@ class Main:
         },
         {
             'type': 'confirm',
+            'name': 'multimedia',
+            'message': '¿Quieres instalar utilidades Multimedia?'
+        },
+        {
+            'type': 'checkbox',
+            'name': 'multimedia',
+            'message': '¿Que utilidades Multimedia deseas instalar?',
+            'choices': dict_to_choices(APPLICATIONS['multimedia']),
+            'when': lambda answers: answers['multimedia']
+        },
+        {
+            'type': 'confirm',
             'name': 'browsers',
             'message': '¿Quieres instalar Navegadores Web?'
         },

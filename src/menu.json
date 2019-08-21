@@ -21,6 +21,10 @@
             "cabextract": {"apt": "cabextract", "checked": true},
             "file-roller": {"apt": "file-roller", "checked": true}
         },
+        "multimedia": {
+          "VLC media player": {"apt": "vlc", "checked": true},
+          "clementine": {"apt": "clementine", "checked": true, "script": "addrepo-clementine.sh"}
+        },
         "browsers": {
             "Google Chrome(Stable Channel)": {"checked": true, "script": "install-google-chrome.sh"},
             "Opera Browser(Stable Channel)": {"checked": true, "script": "install-opera.sh"},
