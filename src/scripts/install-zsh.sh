@@ -1,18 +1,13 @@
 #!/bin/bash
 
-# Fuentes para que se vea bien el tema agnoster
-sudo apt-get install fonts-powerline
-
+#Insalamos ZSH
 sudo apt-get install zsh -y
+
+# Descargamos oh-my-zsh
 wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
 
-# changing the theme to agnoster
-
+# Cambia el tema por agnoster
 sudo sed -i 's/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"agnoster\"/g' ~/.zshrc
-
-# If above line did not work somehow. This is what you should do to enjoy the many themes.
-# go find the hidden .zshrc file and look for ZSH_THEME="robbyrussell" (CTRL+H to find hidden files)
-# change this to ZSH_THEME="random"
 
 # Plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

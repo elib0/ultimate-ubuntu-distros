@@ -2,15 +2,18 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, unicode_literals
-import subprocess, sys, os, json
-from pprint import pprint
-from colors import * # ANSI colors
-from PyInquirer import style_from_dict, Token, prompt, Separator
-from pyfiglet import Figlet
-import emoji
 
+import json
+import os
+import subprocess
+from pprint import pprint
+
+import emoji
+from PyInquirer import prompt
+from colors import *  # ANSI colors
 # Themes from PyInquirer
 from examples import custom_style_3 as style3
+from pyfiglet import Figlet
 
 class Main:
 
@@ -26,105 +29,36 @@ class Main:
         f = open(f"{path}/{name}", 'r')
         return json.load(f)
 
-    def dict_to_choices(dict):
-        choices = []
-        for (key, value) in dict.items():
-            checked = False
-            if 'checked' in value:
-                checked =  value['checked']
-            choices.append({'name': key, 'checked': checked})
-
-        return choices
-
     APPLICATIONS = read_menu(None)
-    questions = [
-        {
-            'type': 'confirm',
-            'name': 'utiles',
-            'message': '¿Quieres instalar Utilidades?'
-        },
-        {
-            'type': 'checkbox',
-            'name': 'utiles',
-            'message': '¿Que Utilidades deseas instalar?',
-            'choices': dict_to_choices(APPLICATIONS['utiles']),
-            'when': lambda answers: answers['utiles']
-        },
-        {
-            'type': 'confirm',
-            'name': 'compressors',
-            'message': '¿Quieres instalar Des/Compresores?'
-        },
-        {
-            'type': 'checkbox',
-            'name': 'compressors',
-            'message': '¿Que Des/Compresores deseas instalar?',
-            'choices': dict_to_choices(APPLICATIONS['compressors']),
-            'when': lambda answers: answers['compressors']
-        },
-        {
-            'type': 'confirm',
-            'name': 'multimedia',
-            'message': '¿Quieres instalar utilidades Multimedia?'
-        },
-        {
-            'type': 'checkbox',
-            'name': 'multimedia',
-            'message': '¿Que utilidades Multimedia deseas instalar?',
-            'choices': dict_to_choices(APPLICATIONS['multimedia']),
-            'when': lambda answers: answers['multimedia']
-        },
-        {
-            'type': 'confirm',
-            'name': 'browsers',
-            'message': '¿Quieres instalar Navegadores Web?'
-        },
-        {
-            'type': 'checkbox',
-            'name': 'browsers',
-            'message': '¿Que Navegadores Web deseas instalar?',
-            'choices': dict_to_choices(APPLICATIONS['browsers']),
-            'when': lambda answers: answers['browsers']
-        },
-        {
-            'type': 'confirm',
-            'name': 'develop',
-            'message': '¿Quieres instalar herramientas de desarrollo?'
-        },
-        {
-            'type': 'checkbox',
-            'name': 'develop',
-            'message': '¿Que herramientas de desarrollo deseas instalar?',
-            'choices': dict_to_choices(APPLICATIONS['develop']),
-            'when': lambda answers: answers['develop']
-        },
-        {
-            'type': 'confirm',
-            'name': 'customizing',
-            'message': '¿Quieres personalizar tu distro?'
-        },
-        {
-            'type': 'checkbox',
-            'name': 'customizing',
-            'message': '¿Que deseas instalar?',
-            'choices': dict_to_choices(APPLICATIONS['customizing']),
-            'when': lambda answers: answers['customizing']
-        },
-        {
-            'type': 'confirm',
-            'name': 'gaming',
-            'message': '¿Quieres instalar juegos?'
-        },
-        {
-            'type': 'checkbox',
-            'name': 'gaming',
-            'message': '¿Que juegos deseas instalar?',
-            'choices': dict_to_choices(APPLICATIONS['gaming']),
-            'when': lambda answers: answers['gaming']
-        }
-    ]
 
     def run(self):
+        # answers = [cat for cat in self.APPLICATIONS.keys()]
+
+        def dict_to_choices(dict):
+            choices = []
+            for (key, value) in dict.items():
+                checked = False
+                if 'checked' in value:
+                    checked = value['checked']
+                choices.append({'name': key, 'checked': checked})
+
+            return choices
+
+        def build_menu():
+            menu = []
+            for (cat, m) in self.APPLICATIONS.items():
+                menu.append({'type': 'confirm', 'name': 'install', 'message': m['message1']})
+                menu.append(
+                    {
+                        'type': 'checkbox',
+                        'name': 'install',
+                        'message': m['message2'],
+                        'choices': dict_to_choices(m['programs']),
+                        'when': lambda answers: answers.get('install', False)
+                    }
+                )
+
+            return menu
 
         def process_selection(answers):
             program_list_selected_apt = ''
@@ -168,7 +102,7 @@ class Main:
 
         # Menu
         show_info()
-        answers = prompt(self.questions, style=style3)
+        answers = prompt(build_menu(), style=style3)
         scripts, apts = process_selection(answers)
         # sh
         if (len(scripts) > 0):
@@ -179,7 +113,7 @@ class Main:
             # Ya se agregaron los repos nuevos actualizamos para poder instalar
             subprocess.call('sudo apt-get update', shell=True)
             # Instala dependencias necesarias para continuar con los demas
-            subprocess.call('sudo apt-get install ' + apts, shell=True)
+            subprocess.call(f'sudo apt-get install -y {apts}', shell=True)
 
 # Inicio del CLi
 Main().run()

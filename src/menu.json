@@ -1,51 +1,89 @@
 {
         "utiles": {
-            "vim": {"apt": "vim", "checked": true},
-            "openshot": {"apt": "openshot"},
-            "ppa-purge": {"apt": "ppa-purge", "checked": true},
-            "shutter": {"apt": "shutter"},
-            "aptitude": {"apt": "aptitude", "checked": true}
+            "message1": "¿Quieres instalar Utilidades?",
+            "message2": "¿Que Utilidades deseas instalar?",
+            "programs": {
+              "Aptitude": {"apt": "aptitude", "checked": true},
+              "Openshot": {"apt": "openshot"},
+              "ppa-purge": {"apt": "ppa-purge", "checked": true},
+              "Shutter": {"apt": "shutter"},
+              "Synaptic": {"apt": "synaptic", "checked": true},
+              "Vim": {"apt": "vim", "checked": true}
+            }
         },
         "compressors": {
-            "p7zip-rar": {"apt": "p7zip-rar", "checked": true},
-            "p7zip-full": {"apt": "p7zip-full", "checked": true},
-            "unace": {"apt": "unace", "checked": true},
-            "unrar": {"apt": "unrar", "checked": true},
-            "zip": {"apt": "zip", "checked": true},
-            "unzip": {"apt": "unzip", "checked": true},
-            "sharutils": {"apt": "sharutils", "checked": true},
-            "rar": {"apt": "rar", "checked": true},
-            "uudeview": {"apt": "uudeview", "checked": true},
-            "mpack": {"apt": "mpack", "checked": true},
-            "arj": {"apt": "arj", "checked": true},
-            "cabextract": {"apt": "cabextract", "checked": true},
-            "file-roller": {"apt": "file-roller", "checked": true}
+            "message1": "¿Quieres instalar Des/Compresores?",
+            "message2": "¿Que Des/Compresores deseas instalar?",
+            "programs": {
+              "arj": {"apt": "arj", "checked": true},
+              "cabextract": {"apt": "cabextract", "checked": true},
+              "file-roller": {"apt": "file-roller", "checked": true},
+              "mpack": {"apt": "mpack", "checked": true},
+              "p7zip-full": {"apt": "p7zip-full", "checked": true},
+              "p7zip-rar": {"apt": "p7zip-rar", "checked": true},
+              "rar": {"apt": "rar", "checked": true},
+              "sharutils": {"apt": "sharutils", "checked": true},
+              "unace": {"apt": "unace", "checked": true},
+              "unrar": {"apt": "unrar", "checked": true},
+              "unzip": {"apt": "unzip", "checked": true},
+              "uudeview": {"apt": "uudeview", "checked": true},
+              "zip": {"apt": "zip", "checked": true}
+            }
         },
         "multimedia": {
-          "VLC media player": {"apt": "vlc", "checked": true},
-          "clementine": {"apt": "clementine", "checked": true, "script": "addrepo-clementine.sh"}
+          "message1": "¿Quieres instalar programas Multimedia?",
+          "message2": "¿Que programas Multimedia deseas instalar?",
+          "programs": {
+            "Clementine": {"apt": "clementine", "checked": true, "script": "addrepo-clementine.sh"},
+            "Rhythmbox": {"apt": "rhythmbox", "checked": true},
+            "VLC media player": {"apt": "vlc", "checked": true}
+          }
+        },
+        "internet": {
+          "message1": "¿Quieres instalar herramientas de Internet?",
+          "message2": "¿Que herramientas de Internet deseas instalar?",
+          "programs": {
+            "qBittorrent": {"apt": "qbittorrent", "checked": true, "script": "addrepo-qbittorrent.sh"}
+          }
         },
         "browsers": {
+          "message1": "¿Quieres instalar Navegadores Web?",
+          "message2": "¿Que Navegadores Web deseas instalar?",
+          "programs": {
             "Google Chrome(Stable Channel)": {"checked": true, "script": "install-google-chrome.sh"},
             "Opera Browser(Stable Channel)": {"checked": true, "script": "install-opera.sh"},
             "Vilvadi Browser(Stable Channel)": {"apt": "vivaldi-stable", "script": "addrepo-vivaldi.sh"}
+          }
         },
         "develop": {
-            "Visual Studio Code(Stable Channel)": {"checked": true, "script": "install-vscode.sh"},
-            "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "addrepo-sublime-text.sh"},
-            "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "checked": true, "script": "addrepo-sublime-merge.sh"},
-            "Node Version Manager": {"apt": false},
+          "message1": "¿Quieres instalar herramientas de Desarrollo?",
+          "message2": "¿Que herramientas de Desarrollo deseas instalar?",
+          "programs": {
             "Apache 2": {"apt": false},
+            "MySQL": {"Mysql Server 8.0":"mysql", "script": "install-mysql.sh"},
+            "Node Version Manager": {"apt": false},
             "Php 7.2 (Con extensiones)": {"apt": false},
-            "MySQL": {"Mysql Server 8.0":"mysql", "script": "install-mysql.sh"}
+            "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "checked": true, "script": "addrepo-sublime-merge.sh"},
+            "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "addrepo-sublime-text.sh"},
+            "Visual Studio Code(Stable Channel)": {"checked": true, "script": "install-vscode.sh"}
+          }
         },
         "customizing": {
-            "plank": {"apt": "plank"},
-            "variety": {"apt": "variety", "script": "addrepo-variety.sh"},
-            "albert": {"apt": "albert", "script": "addrepo-albert.sh"},
-            "Grub Customizer": {"apt": "grub-customizer", "script": "addrepo-grub-customizer.sh"}
+          "message1": "¿Quieres personalizar tu Distro?",
+          "message2": "¿Que herramientas de peatonalización deseas instalar?",
+          "programs": {
+            "Albert": {"apt": "albert", "script": "addrepo-albert.sh"},
+            "Grub Customizer": {"apt": "grub-customizer", "script": "addrepo-grub-customizer.sh"},
+            "Plank": {"apt": "plank"},
+            "Variety": {"apt": "variety", "script": "addrepo-variety.sh"},
+            "ZSH + oh-my-ZSH": {"checked": true,"script": "install-zsh.sh"}
+          }
         },
-        "gaming": {
+        "games": {
+          "message1": "¿Quieres instalar Juegos?",
+          "message2": "¿Que Juegos deseas instalar?",
+          "programs": {
             "Steam": {"checked": true, "script": "install-steam.sh"}
+          }
         }
     }
