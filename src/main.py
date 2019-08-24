@@ -8,6 +8,7 @@ import os
 import subprocess
 
 import emoji
+import click
 from PyInquirer import prompt
 from colors import *  # ANSI colors
 from pyfiglet import Figlet
@@ -17,11 +18,11 @@ from examples import custom_style_3 as style3
 class Main:
     APPLICATIONS = {}
 
-    def __init__(self):
+    def __init__(self, menu_file='menu.json'):
         # Creamos menu con nombre por defecto del archivo "menu.json"
-        self.APPLICATIONS = self.read_menu()
+        self.APPLICATIONS = self.read_menu(menu_file)
 
-    def read_menu(self, file_name='menu.json'):
+    def read_menu(self, file_name):
         """Lee el archivo de menú que esta en la raíz del script"""
         path = os.path.dirname(os.path.realpath(sys.argv[0]))  # Path to script
         f = open(f'{path}/{file_name}', 'r')
@@ -29,7 +30,6 @@ class Main:
 
     def run(self):
         """Corre el cli"""
-        # answers = [cat for cat in self.APPLICATIONS.keys()]
 
         def dict_to_choices(dict):
             """Convierte diccionario en selecciones para PyInquirer"""
@@ -115,6 +115,12 @@ class Main:
             # Instala dependencias necesarias para continuar con los demas
             subprocess.call(f'sudo apt-get install -y {apts}', shell=True)
 
+#click
+@click.command()
+@click.option('-f', '--menu-file', default='menu.json', help='Archivo JSON para el menú.')
+def run(menu_file='menu.json'):
+    Main(menu_file).run()
+
 # Inicio del CLi ## REF: https://es.stackoverflow.com/questions/32165/qué-es-if-name-main
 if __name__ == '__main__':
-    Main().run()
+    run()
