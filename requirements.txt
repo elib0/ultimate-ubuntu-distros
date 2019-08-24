@@ -1,5 +1,5 @@
-colors
 ansicolors>=1.1.8
+distro>=1.4.0
 emoji>=0.5.3
 prompt-toolkit==1.0.14
 pyfiglet>=0.8.post1
@@ -8,4 +8,3 @@ PyInquirer>=1.0.3
 regex>=2019.8.19
 six>=1.12.0
 wcwidth>=0.1.7
-distro>=1.4.0

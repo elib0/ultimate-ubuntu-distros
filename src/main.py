@@ -6,35 +6,33 @@ from __future__ import print_function, unicode_literals
 import json
 import os
 import subprocess
-from pprint import pprint
 
 import emoji
 from PyInquirer import prompt
 from colors import *  # ANSI colors
+from pyfiglet import Figlet
 # Themes from PyInquirer
 from examples import custom_style_3 as style3
-from pyfiglet import Figlet
 
 class Main:
+    APPLICATIONS = {}
 
-    def distro_info(self):
-        info = subprocess.check_output('lsb_release -a', shell=True)
-        info = str(info) # Convierto a string normal y no binario
-        info.replace('\\t', '')
-        return info.splitlines()
+    def __init__(self):
+        # Creamos menu con nombre por defecto del archivo "menu.json"
+        self.APPLICATIONS = self.read_menu()
 
-    def read_menu(self):
+    def read_menu(self, file_name='menu.json'):
+        """Lee el archivo de menú que esta en la raíz del script"""
         path = os.path.dirname(os.path.realpath(sys.argv[0]))  # Path to script
-        name = 'menu.json'
-        f = open(f"{path}/{name}", 'r')
+        f = open(f'{path}/{file_name}', 'r')
         return json.load(f)
 
-    APPLICATIONS = read_menu(None)
-
     def run(self):
+        """Corre el cli"""
         # answers = [cat for cat in self.APPLICATIONS.keys()]
 
         def dict_to_choices(dict):
+            """Convierte diccionario en selecciones para PyInquirer"""
             choices = []
             for (key, value) in dict.items():
                 checked = False
@@ -45,6 +43,7 @@ class Main:
             return choices
 
         def build_menu():
+            """Construye el menú a partir del archivo json"""
             menu = []
             for (cat, m) in self.APPLICATIONS.items():
                 menu.append({'type': 'confirm', 'name': 'install', 'message': m['message1']})
@@ -61,6 +60,7 @@ class Main:
             return menu
 
         def process_selection(answers):
+            """Procesa las selecciones del usuario con el PyInquirer"""
             program_list_selected_apt = ''
             program_list_selected_sh = []
             for cat in answers.keys():
@@ -77,8 +77,8 @@ class Main:
 
             return program_list_selected_sh, program_list_selected_apt
 
-        # Limpia pantalla y muestra info del programa
         def show_info():
+            """Limpia pantalla y muestra info del programa"""
             subprocess.call('clear')
             f = Figlet(font='slant')
 
@@ -115,5 +115,6 @@ class Main:
             # Instala dependencias necesarias para continuar con los demas
             subprocess.call(f'sudo apt-get install -y {apts}', shell=True)
 
-# Inicio del CLi
-Main().run()
+# Inicio del CLi ## REF: https://es.stackoverflow.com/questions/32165/qué-es-if-name-main
+if __name__ == '__main__':
+    Main().run()
