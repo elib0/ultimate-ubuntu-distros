@@ -13,6 +13,7 @@ libssl-dev
 llvm
 make
 tk-dev
+ubuntu-restricted-extras
 vim
 wget
 xclip
