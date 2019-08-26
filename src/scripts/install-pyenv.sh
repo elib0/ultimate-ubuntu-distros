@@ -26,6 +26,4 @@ pyenv global 3.7.4 # la establecemos como predeterminada
 # Requerimientos de main.py script ##REF: https://realpython.com/what-is-pip/
 pip install -r requirements.txt #Instalamos con archivo de requerimientos del cli
 
-echo "#########################################################################"
 echo "################# Python version management instalado ###################"
-echo "#########################################################################"

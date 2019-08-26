@@ -1,14 +1,15 @@
 #!/bin/bash
-#
 
-rm /tmp/google-chrome-stable_current_amd64.deb
+APPNAME="Google Chrome"
+FILENAME="google-chrome-stable_current_amd64.deb"
+URL="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 
-echo "Descargando google chrome latest stable edition"
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
-sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
+sudo rm /tmp/$FILENAME
 
-rm /tmp/google-chrome-stable_current_amd64.deb
+echo "Descargando $APPNAME stable"
+sudo wget $URL -O /tmp/$FILENAME
+sudo dpkg -i /tmp/$FILENAME
 
-echo "################################################################"
-echo "###################    google chrome instalado #################"
-echo "################################################################"
+sudo rm /tmp/$FILENAME
+
+echo "################### $APPNAME instalado #################"

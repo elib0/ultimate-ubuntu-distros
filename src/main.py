@@ -60,7 +60,7 @@ class Main:
 
         def process_selection(answers):
             """Procesa las selecciones del usuario con el questionary"""
-            _scripts = []; _posts = []; _apts = ''; _pips = ''
+            _pres = []; _posts = []; _apts = ''; _pips = ''
             for cat in answers.keys():
                 # program_list_selected = ' '.join(str(a) for a in answers[k])
                 if isinstance(answers[cat], list):
@@ -68,7 +68,7 @@ class Main:
                         if app in self.APPLICATIONS[cat]['programs'].keys():
                             # Primero corremos los scripts por que algunos tienen PPAs nada mas
                             if 'script' in self.APPLICATIONS[cat]['programs'][app]:
-                                _scripts.append(self.APPLICATIONS[cat]['programs'][app]['script'])
+                                _pres.append(self.APPLICATIONS[cat]['programs'][app]['pre'])
 
                             if 'apt' in self.APPLICATIONS[cat]['programs'][app]:
                                 _apts += self.APPLICATIONS[cat]['programs'][app]['apt'] + ' '
@@ -79,7 +79,7 @@ class Main:
                             if 'post' in self.APPLICATIONS[cat]['programs'][app]:
                                 _posts.append(self.APPLICATIONS[cat]['programs'][app]['post'])
 
-            return _scripts, _apts, _pips, _posts
+            return _pres, _apts, _pips, _posts
 
         def show_info():
             """Limpia pantalla y muestra info del programa"""
@@ -107,25 +107,37 @@ class Main:
         # Menu
         show_info()
         answers = prompt(build_menu())
-        scripts, apts, pips, post_scripts = process_selection(answers)
+        pre_scripts, apts, pips, post_scripts = process_selection(answers)
         #pprint(apts); exit();
-        # sh
-        if (len(scripts) > 0):
-            for script in scripts:
-                subprocess.call(f"sh src/scripts/{script}", shell=True)
-        # apt-get
+        # Pre Instalations
+        if (len(pre_scripts) > 0):
+            for script in pre_scripts:
+                file = f"sh src/scripts/{script}"
+                if os.path.exists(file):
+                    subprocess.call(file, shell=True)
+        # apt-get Instalations
         if (len(apts) > 0):
             # Ya se agregaron los repos nuevos actualizamos para poder instalar
             subprocess.call('sudo apt-get update', shell=True)
             subprocess.call(f'sudo apt-get install -y {apts}', shell=True)
-        # Package manager for Python(pip)
+        # Package manager Instalations(pip)
         if (len(pips) > 0):
             subprocess.call(f'pip install {pips}', shell=True)
+        # Post Instalations
+        if (len(post_scripts) > 0):
+            for script in post_scripts:
+                file = f"sh src/scripts/{script}"
+                if os.path.exists(file):
+                    subprocess.call(file, shell=True)
 
 #click
 @click.command()
 @click.option('-f', '--menu-file', default='menu.json', help='Archivo JSON para el menú.')
 def run(menu_file):
+    """
+    Menú principal para Ultimate Ubuntu Distros,
+    Instala programas marcados por el usuario de una manera fácil y rápida.
+    """
     return Main(menu_file).run()
 
 # Inicio del CLi ## REF: https://es.stackoverflow.com/questions/32165/qué-es-if-name-main

@@ -1,13 +1,15 @@
 #!/bin/bash
 
-rm /tmp/steam-stable.deb
+APPNAME="Steam"
+FILENAME="steam-latest.deb"
+URL="http://repo.steampowered.com/steam/archive/precise/steam_latest.deb"
 
-echo "Descargando steam"
-wget http://repo.steampowered.com/steam/archive/precise/steam_latest.deb -O /tmp/steam-stable.deb
-sudo dpkg -i /tmp/steam-stable.deb
+sudo rm /tmp/$FILENAME
 
-rm /tmp/steam-stable.deb
+echo "Descargando $APPNAME latest"
+sudo wget $URL -O /tmp/$FILENAME
+sudo dpkg -i /tmp/$FILENAME
 
-echo "################################################################"
-echo "########################  Steam instalado ######################"
-echo "################################################################"
+sudo rm /tmp/$FILENAME
+
+echo "################### $APPNAME instalado #################"

@@ -34,7 +34,7 @@
           "message1": "¿Quieres instalar programas Multimedia?",
           "message2": "¿Que programas Multimedia deseas instalar?",
           "programs": {
-            "Clementine": {"apt": "clementine", "checked": true, "script": "addrepo-clementine.sh"},
+            "Clementine": {"apt": "clementine", "checked": true, "pre": "addrepo-clementine.sh"},
             "Rhythmbox": {"apt": "rhythmbox", "checked": true},
             "VLC media player": {"apt": "vlc", "checked": true}
           }
@@ -43,49 +43,49 @@
           "message1": "¿Quieres instalar herramientas de Internet?",
           "message2": "¿Que herramientas de Internet deseas instalar?",
           "programs": {
-            "qBittorrent": {"apt": "qbittorrent", "checked": true, "script": "addrepo-qbittorrent.sh"}
+            "qBittorrent": {"apt": "qbittorrent", "checked": true, "pre": "addrepo-qbittorrent.sh"}
           }
         },
         "browsers": {
           "message1": "¿Quieres instalar Navegadores Web?",
           "message2": "¿Que Navegadores Web deseas instalar?",
           "programs": {
-            "Google Chrome(Stable Channel)": {"checked": true, "script": "install-google-chrome.sh"},
-            "Opera Browser(Stable Channel)": {"checked": true, "script": "install-opera.sh"},
-            "Vilvadi Browser(Stable Channel)": {"apt": "vivaldi-stable", "script": "addrepo-vivaldi.sh"}
+            "Google Chrome(stable)": {"checked": true, "pre": "install-google-chrome.sh"},
+            "Opera Browser(stable)": {"checked": true, "pre": "install-opera.sh"},
+            "Vilvadi Browser(stable)": {"apt": "vivaldi-stable", "pre": "addrepo-vivaldi.sh"}
           }
         },
         "develop": {
           "message1": "¿Quieres instalar herramientas de Desarrollo?",
           "message2": "¿Que herramientas de Desarrollo deseas instalar?",
           "programs": {
-            "Apache 2": {"apt": false},
+            "Apache 2": {"apt": "apache2 libapache2-mod-php7.2"},
             "iPython": {"pip":"ipython", "checked": true},
-            "MySQL": {"Mysql Server 8.0":"mysql", "script": "install-mysql.sh"},
-            "Node Version Manager": {"apt": false},
-            "Php 7.2 (Con extensiones)": {"apt": false},
+            "Mysql Server(lastes)": {"apt": "mysql-server", "pre": "install-mysql-server.sh"},
+            "NVM + nodeJS lastes LTS": {"checked": true, "pre": "install-nvm-nodejs.sh"},
+            "Php 7.2 + Extensions + Composer": {"apt": "php7.2 php7.2-bcmath php7.2-json php7.2-mbstring php7.2-xml php7.2-gd php7.2-opcache"},
             "Ptpython": {"pip":"ptpython", "checked": true},
-            "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "checked": true, "script": "addrepo-sublime-merge.sh"},
-            "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "addrepo-sublime-text.sh"},
-            "Visual Studio Code(Stable Channel)": {"checked": true, "script": "install-vscode.sh"}
+            "Sublime Merge(stable)": {"apt": "sublime-merge", "checked": true, "pre": "addrepo-sublime-merge.sh"},
+            "Sublime Text 3(stable)": {"apt": "sublime-text", "checked": true, "pre": "addrepo-sublime-text.sh"},
+            "Visual Studio Code(stable)": {"checked": true, "pre": "install-vscode.sh"}
           }
         },
         "customizing": {
           "message1": "¿Quieres personalizar tu Distro?",
           "message2": "¿Que herramientas de peatonalización deseas instalar?",
           "programs": {
-            "Albert": {"apt": "albert", "script": "addrepo-albert.sh"},
-            "Grub Customizer": {"apt": "grub-customizer", "script": "addrepo-grub-customizer.sh"},
+            "Albert": {"apt": "albert", "pre": "addrepo-albert.sh"},
+            "Grub Customizer": {"apt": "grub-customizer", "pre": "addrepo-grub-customizer.sh"},
             "Plank": {"apt": "plank"},
-            "Variety": {"apt": "variety", "script": "addrepo-variety.sh"},
-            "ZSH + oh-my-ZSH": {"apt": "zsh", "checked": true,"script": "install-zsh.sh"}
+            "Variety": {"apt": "variety", "pre": "addrepo-variety.sh"},
+            "ZSH + oh-my-ZSH": {"apt": "zsh", "checked": true, "post": "install-oh-my-zsh.sh"}
           }
         },
         "games": {
           "message1": "¿Quieres instalar Juegos?",
           "message2": "¿Que Juegos deseas instalar?",
           "programs": {
-            "Steam": {"checked": true, "script": "install-steam.sh"}
+            "Steam": {"checked": true, "pre": "install-steam.sh"}
           }
         }
     }

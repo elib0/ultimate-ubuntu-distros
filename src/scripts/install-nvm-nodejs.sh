@@ -12,9 +12,7 @@ echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This
 # Recargamos configuracion de oh-my-zsh
 source ~/.zshrc
 
-# Instalamos ultiima version LTS estable
+# Instalamos ultima version LTS estable
 nvm install --lts
 
-echo "#########################################################################"
 echo "################# Python version management instalado ###################"
-echo "#########################################################################"
