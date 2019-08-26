@@ -29,13 +29,27 @@
     "message2": "Mensaje mostrado cuando se esta en la lista de programas a instalar",
     "programs": {
         "Nombre a mostar": {"apt": "vim", ["checked": true]},
-        "Ej: variety": {["apt": "variety"], "script": "install-variety.sh"}
+        "Ej: variety": {["apt": "variety"], "script": "addrepo-variety.sh"},
+        "Google Chrome": {"checked": true, "script": "install-google-chrome.sh"},
+        "iPython": {["pip": "ipython"], ["checked": true]},
+        "Git": {["apt": "git"], "post": "setup-git.sh"}
     }
 }
 ~~~
-  
-> Propiedad **apt** es opcional, se usa si se va a correr un paquete por `sudo apt-get` si no tomara la propiedad **script**.
+> Propiedad **script** es opcional, se usa para correr un script **_".sh"_** mediante `sudo sh`.
 
-> Propiedad **checked** es opcional, se usa instalación por defecto, `default: False`
+> Propiedad **apt** es opcional, se usa si se va a instalar un paquete por `sudo apt-get`.
 
-> Propiedad **script** es opcional, se usa para correr un script **_".sh"_** mediante `sudo sh` se puede usar en conjunto con la propiedad **apt** y ambos comandos serán ejecutados.
+> Propiedad **pip** es opcional, se usa si se va a instalar un paquete por `pip install`.
+
+> Propiedad **post** es opcional, se usa para correr un script después de instalar un programa, Por ej: Para configurar un programa ya instalado.
+
+> Propiedad **checked** es opcional, se usa para marcar por defecto la aplicación a instalar, `default: False`
+
+> **NOTA:** Todas las propiedades se pueden usar en conjunto para instalar dependencias o ejecutar script pre y post instalación.
+>
+> el orden de ejecución de las propiedades es el siguiente:
+> 1. script.
+> 2. apt.
+> 3. pip.
+> 4. post.

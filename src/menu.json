@@ -60,9 +60,11 @@
           "message2": "¿Que herramientas de Desarrollo deseas instalar?",
           "programs": {
             "Apache 2": {"apt": false},
+            "iPython": {"pip":"ipython", "checked": true},
             "MySQL": {"Mysql Server 8.0":"mysql", "script": "install-mysql.sh"},
             "Node Version Manager": {"apt": false},
             "Php 7.2 (Con extensiones)": {"apt": false},
+            "Ptpython": {"pip":"ptpython", "checked": true},
             "Sublime Merge(Stable Channel)": {"apt": "sublime-merge", "checked": true, "script": "addrepo-sublime-merge.sh"},
             "Sublime Text 3(Stable Channel)": {"apt": "sublime-text", "checked": true, "script": "addrepo-sublime-text.sh"},
             "Visual Studio Code(Stable Channel)": {"checked": true, "script": "install-vscode.sh"}
@@ -76,7 +78,7 @@
             "Grub Customizer": {"apt": "grub-customizer", "script": "addrepo-grub-customizer.sh"},
             "Plank": {"apt": "plank"},
             "Variety": {"apt": "variety", "script": "addrepo-variety.sh"},
-            "ZSH + oh-my-ZSH": {"checked": true,"script": "install-zsh.sh"}
+            "ZSH + oh-my-ZSH": {"apt": "zsh", "checked": true,"script": "install-zsh.sh"}
           }
         },
         "games": {

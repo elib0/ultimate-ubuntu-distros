@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#Insalamos ZSH
-sudo apt-get install zsh -y
-
 # Descargamos oh-my-zsh
 wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
 

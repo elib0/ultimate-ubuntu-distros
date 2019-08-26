@@ -26,11 +26,9 @@ class FirstStep:
     subprocess.call('sudo apt-get upgrade', shell=True)
     # 2. Instala dependencias necesarias para continuar con el resto del script
     subprocess.call('sudo apt-get install -y ' + program_list_selected, shell=True)
-    # 3. Instala oh-my-zsh ¿Alfin y al cabo, a quien no le gusta una consola bonita?
-    #subprocess.call('sh src/scripts/install-zsh.sh', shell=True)
-    # 4. Instala PyENV y agrega python 3.7.4 como predeterminado python
+    # 3. Instala PyENV y agrega python 3.7.4 como predeterminado python
     subprocess.call('sh src/scripts/install-pyenv.sh', shell=True)
-    # 5. Corre Script principal
+    # 4. Corre Script principal
     subprocess.call('python src/main.py', shell=True)
 
 # Inicio del script

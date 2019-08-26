@@ -39,7 +39,7 @@ fi
 git init
 git config --global user.name "elib0"
 git config --global user.email "elijose.c@gmail.com"
-sudo git config --system core.editor nano
+sudo git config --system core.editor vim
 git config --global credential.helper cache
 git config --global credential.helper 'cache --timeout=100000'
 git config --global push.default simple

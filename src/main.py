@@ -6,14 +6,14 @@ from __future__ import print_function, unicode_literals
 import json
 import os
 import subprocess
+from pprint import pprint
 
 import emoji
 import click
-from PyInquirer import prompt
+from questionary import prompt
 from colors import *  # ANSI colors
 from pyfiglet import Figlet
-# Themes from PyInquirer
-from examples import custom_style_3 as style3
+
 
 class Main:
     APPLICATIONS = {}
@@ -30,11 +30,10 @@ class Main:
 
     def run(self):
         """Corre el cli"""
-
-        def dict_to_choices(dict):
-            """Convierte diccionario en selecciones para PyInquirer"""
+        def dict_to_choices(programs):
+            """Convierte diccionario en selecciones para questionary"""
             choices = []
-            for (key, value) in dict.items():
+            for (key, value) in programs.items():
                 checked = False
                 if 'checked' in value:
                     checked = value['checked']
@@ -46,36 +45,41 @@ class Main:
             """Construye el menú a partir del archivo json"""
             menu = []
             for (cat, m) in self.APPLICATIONS.items():
-                menu.append({'type': 'confirm', 'name': 'install', 'message': m['message1']})
+                menu.append({'type': 'confirm', 'name': 'install', 'message': m['message1'], 'default': True})
                 menu.append(
                     {
                         'type': 'checkbox',
-                        'name': 'install',
+                        'name': cat,
                         'message': m['message2'],
                         'choices': dict_to_choices(m['programs']),
-                        'when': lambda answers: answers.get('install', False)
+                        'when': lambda answers: answers['install']
                     }
                 )
 
             return menu
 
         def process_selection(answers):
-            """Procesa las selecciones del usuario con el PyInquirer"""
-            program_list_selected_apt = ''
-            program_list_selected_sh = []
+            """Procesa las selecciones del usuario con el questionary"""
+            _scripts = []; _posts = []; _apts = ''; _pips = ''
             for cat in answers.keys():
                 # program_list_selected = ' '.join(str(a) for a in answers[k])
                 if isinstance(answers[cat], list):
                     for app in answers[cat]:
-                        if app in self.APPLICATIONS[cat]:
-                            # Primero corremos los sh por que algunos tienen PPAs nada mas
-                            if 'script' in self.APPLICATIONS[cat][app]:
-                                program_list_selected_sh.append(self.APPLICATIONS[cat][app]['script'])
+                        if app in self.APPLICATIONS[cat]['programs'].keys():
+                            # Primero corremos los scripts por que algunos tienen PPAs nada mas
+                            if 'script' in self.APPLICATIONS[cat]['programs'][app]:
+                                _scripts.append(self.APPLICATIONS[cat]['programs'][app]['script'])
 
-                            if 'apt' in self.APPLICATIONS[cat][app]:
-                                program_list_selected_apt += self.APPLICATIONS[cat][app]['apt'] + ' '
+                            if 'apt' in self.APPLICATIONS[cat]['programs'][app]:
+                                _apts += self.APPLICATIONS[cat]['programs'][app]['apt'] + ' '
 
-            return program_list_selected_sh, program_list_selected_apt
+                            if 'pip' in self.APPLICATIONS[cat]['programs'][app]:
+                                _pips += self.APPLICATIONS[cat]['programs'][app]['pip'] + ' '
+
+                            if 'post' in self.APPLICATIONS[cat]['programs'][app]:
+                                _posts.append(self.APPLICATIONS[cat]['programs'][app]['post'])
+
+            return _scripts, _apts, _pips, _posts
 
         def show_info():
             """Limpia pantalla y muestra info del programa"""
@@ -102,8 +106,9 @@ class Main:
 
         # Menu
         show_info()
-        answers = prompt(build_menu(), style=style3)
-        scripts, apts = process_selection(answers)
+        answers = prompt(build_menu())
+        scripts, apts, pips, post_scripts = process_selection(answers)
+        #pprint(apts); exit();
         # sh
         if (len(scripts) > 0):
             for script in scripts:
@@ -112,14 +117,16 @@ class Main:
         if (len(apts) > 0):
             # Ya se agregaron los repos nuevos actualizamos para poder instalar
             subprocess.call('sudo apt-get update', shell=True)
-            # Instala dependencias necesarias para continuar con los demas
             subprocess.call(f'sudo apt-get install -y {apts}', shell=True)
+        # Package manager for Python(pip)
+        if (len(pips) > 0):
+            subprocess.call(f'pip install {pips}', shell=True)
 
 #click
 @click.command()
 @click.option('-f', '--menu-file', default='menu.json', help='Archivo JSON para el menú.')
-def run(menu_file='menu.json'):
-    Main(menu_file).run()
+def run(menu_file):
+    return Main(menu_file).run()
 
 # Inicio del CLi ## REF: https://es.stackoverflow.com/questions/32165/qué-es-if-name-main
 if __name__ == '__main__':
