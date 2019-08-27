@@ -108,7 +108,7 @@ class Main:
         show_info()
         answers = prompt(build_menu())
         pre_scripts, apts, pips, post_scripts = process_selection(answers)
-        exit(pprint(apts))
+        #exit(pprint(apts))
         # Pre Instalations
         if (len(pre_scripts) > 0):
             for script in pre_scripts:

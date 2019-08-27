@@ -15,8 +15,8 @@ por lo tanto si es una instalación limpia de linux recomiendo correr primero
 dicho script.
  
 
-### Como usar:
- - Se usa **Y** ó **N** para afirmar o negar instalaciones en el menú.
+### Detalles:
+ - Se usa **S** ó **N** para afirmar o negar instalaciones en el menú.
  - Usar las teclas de flechas **(Arriba/Abajo)** para desplazarte por la lista de aplicaciones.
  - Con la tecla **\<space\>** puedes marcar o desmarcar una aplicación.
  - Con la tecla **\<a>** marcas toda una categoría.
