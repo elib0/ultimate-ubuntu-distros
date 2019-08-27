@@ -10,7 +10,7 @@ from pprint import pprint
 
 import emoji
 import click
-from questionary import prompt
+from oquestionary import prompt
 from colors import *  # ANSI colors
 from pyfiglet import Figlet
 
@@ -108,7 +108,7 @@ class Main:
         show_info()
         answers = prompt(build_menu())
         pre_scripts, apts, pips, post_scripts = process_selection(answers)
-        #pprint(apts); exit();
+        exit(pprint(apts))
         # Pre Instalations
         if (len(pre_scripts) > 0):
             for script in pre_scripts:

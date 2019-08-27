@@ -4,6 +4,7 @@
             "message2": "¿Que Utilidades deseas instalar?",
             "programs": {
               "Aptitude": {"apt": "aptitude", "checked": true},
+              "Gparted": {"apt": "gparted", "checked": true},
               "Openshot": {"apt": "openshot"},
               "ppa-purge": {"apt": "ppa-purge", "checked": true},
               "Shutter": {"apt": "shutter"},
@@ -43,6 +44,7 @@
           "message1": "¿Quieres instalar herramientas de Internet?",
           "message2": "¿Que herramientas de Internet deseas instalar?",
           "programs": {
+            "Discord": {"checked": true, "pre": "install-discord.sh"},
             "qBittorrent": {"apt": "qbittorrent", "checked": true, "pre": "addrepo-qbittorrent.sh"}
           }
         },
@@ -61,9 +63,9 @@
           "programs": {
             "Apache 2": {"apt": "apache2 libapache2-mod-php7.2"},
             "iPython": {"pip":"ipython", "checked": true},
-            "Mysql Server(lastes)": {"apt": "mysql-server", "pre": "install-mysql-server.sh"},
+            "Mysql Server(lastes)": {"apt": "mysql-server python-mysqldb libmysqlclient-dev", "pre": "install-mysql-server.sh", "pip": "mysqlclient"},
             "NVM + nodeJS lastes LTS": {"checked": true, "pre": "install-nvm-nodejs.sh"},
-            "Php 7.2 + Extensions + Composer": {"apt": "php7.2 php7.2-bcmath php7.2-json php7.2-mbstring php7.2-xml php7.2-gd php7.2-opcache"},
+            "Php 7.2 + Extensions + Composer": {"apt": "php7.2 php7.2-bcmath php7.2-json php7.2-mbstring php7.2-xml php7.2-gd php7.2-opcache", "post":  "install-phpcomposer.sh"},
             "Ptpython": {"pip":"ptpython", "checked": true},
             "Sublime Merge(stable)": {"apt": "sublime-merge", "checked": true, "pre": "addrepo-sublime-merge.sh"},
             "Sublime Text 3(stable)": {"apt": "sublime-text", "checked": true, "pre": "addrepo-sublime-text.sh"},
@@ -75,6 +77,7 @@
           "message2": "¿Que herramientas de peatonalización deseas instalar?",
           "programs": {
             "Albert": {"apt": "albert", "pre": "addrepo-albert.sh"},
+            "GNOME Tweaks": {"apt": "gnome-tweaks", "checked": true},
             "Grub Customizer": {"apt": "grub-customizer", "pre": "addrepo-grub-customizer.sh"},
             "Plank": {"apt": "plank"},
             "Variety": {"apt": "variety", "pre": "addrepo-variety.sh"},

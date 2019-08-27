@@ -6,6 +6,3 @@ emoji>=0.5.3
 prompt-toolkit>=2.0.9
 pyfiglet>=0.8.post1
 Pygments>=2.4.2
-regex>=2019.8.19
-six>=1.12.0
-wcwidth>=0.1.7
