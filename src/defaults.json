@@ -1,0 +1,28 @@
+{
+	"pres": [
+		"apt-transport-https",
+		"build-essential",
+		"curl",
+		"fonts-powerline",
+		"git",
+		"libbz2-dev",
+		"libffi-dev",
+		"libncurses5-dev",
+		"libncursesw5-dev",
+		"libreadline-dev",
+		"libsqlite3-dev",
+		"libssl-dev",
+		"llvm",
+		"make",
+		"tk-dev",
+		"ubuntu-restricted-extras",
+		"vim",
+		"wget",
+		"xclip",
+		"xz-utils",
+		"zlib1g-dev"
+	],
+	"posts": [
+		"setup-git.sh"
+	]
+}

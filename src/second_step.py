@@ -3,10 +3,10 @@
 
 from __future__ import print_function, unicode_literals
 
-import json
-import os
+import os, sys
 import subprocess
 from pprint import pprint
+from pathlib import Path
 
 import emoji
 import click
@@ -14,22 +14,38 @@ from oquestionary import prompt
 from colors import *  # ANSI colors
 from pyfiglet import Figlet
 
+from file_handler import FileHandler
 
-class Main:
-    APPLICATIONS = {}
+
+class SecondStep:
+    # Constantes para prioridad de categoría a instalar
+    class STEP:
+        PRE = '1'
+        APT = '2'
+        PIP = '3'
+        POST = '4'
+
+    SCRIPT_PATH = os.path.dirname(os.path.realpath(sys.argv[0]))
+    APPLICATIONS={}
 
     def __init__(self, menu_file='menu.json'):
         # Creamos menu con nombre por defecto del archivo "menu.json"
-        self.APPLICATIONS = self.read_menu(menu_file)
-
-    def read_menu(self, file_name):
-        """Lee el archivo de menú que esta en la raíz del script"""
-        path = os.path.dirname(os.path.realpath(sys.argv[0]))  # Path to script
-        f = open(f'{path}/{file_name}', 'r')
-        return json.load(f)
+        self.APPLICATIONS = FileHandler(menu_file=menu_file).get_menu()
 
     def run(self):
         """Corre el cli"""
+
+        STEP = self.STEP
+
+        def run_with(name_file):
+            """Define que comando se corre en SH o PYTHON o cualquier otro de acuerdo a su extensión"""
+            cmd = 'sh'
+            cmd = Path(script).suffix.replace('.', '')
+            if(cmd == 'py'):
+                cmd = 'python'
+            return cmd
+
+
         def dict_to_choices(programs):
             """Convierte diccionario en selecciones para questionary"""
             choices = []
@@ -60,26 +76,21 @@ class Main:
 
         def process_selection(answers):
             """Procesa las selecciones del usuario con el questionary"""
-            _pres = []; _posts = []; _apts = ''; _pips = ''
+            r = {STEP.PRE: [], STEP.APT: '', STEP.PIP: '', STEP.POST: []}
             for cat in answers.keys():
-                # program_list_selected = ' '.join(str(a) for a in answers[k])
                 if isinstance(answers[cat], list):
                     for app in answers[cat]:
                         if app in self.APPLICATIONS[cat]['programs'].keys():
-                            # Primero corremos los scripts por que algunos tienen PPAs nada mas
-                            if 'script' in self.APPLICATIONS[cat]['programs'][app]:
-                                _pres.append(self.APPLICATIONS[cat]['programs'][app]['pre'])
-
+                            if 'pre' in self.APPLICATIONS[cat]['programs'][app]:
+                                r[STEP.PRE].append(self.APPLICATIONS[cat]['programs'][app]['pre'])
                             if 'apt' in self.APPLICATIONS[cat]['programs'][app]:
-                                _apts += self.APPLICATIONS[cat]['programs'][app]['apt'] + ' '
-
+                                r[STEP.APT] += self.APPLICATIONS[cat]['programs'][app]['apt'] + ' '
                             if 'pip' in self.APPLICATIONS[cat]['programs'][app]:
-                                _pips += self.APPLICATIONS[cat]['programs'][app]['pip'] + ' '
-
+                                r[STEP.PIP] += self.APPLICATIONS[cat]['programs'][app]['pip'] + ' '
                             if 'post' in self.APPLICATIONS[cat]['programs'][app]:
-                                _posts.append(self.APPLICATIONS[cat]['programs'][app]['post'])
+                                r[STEP.POST].append(self.APPLICATIONS[cat]['programs'][app]['post'])
 
-            return _pres, _apts, _pips, _posts
+            return r
 
         def show_info():
             """Limpia pantalla y muestra info del programa"""
@@ -107,28 +118,29 @@ class Main:
         # Menu
         show_info()
         answers = prompt(build_menu())
-        pre_scripts, apts, pips, post_scripts = process_selection(answers)
-        #exit(pprint(apts))
-        # Pre Instalations
-        if (len(pre_scripts) > 0):
-            for script in pre_scripts:
-                file = f"sh src/scripts/{script}"
-                if os.path.exists(file):
-                    subprocess.call(file, shell=True)
-        # apt-get Instalations
-        if (len(apts) > 0):
-            # Ya se agregaron los repos nuevos actualizamos para poder instalar
-            subprocess.call('sudo apt-get update', shell=True)
-            subprocess.call(f'sudo apt-get install -y {apts}', shell=True)
-        # Package manager Instalations(pip)
-        if (len(pips) > 0):
-            subprocess.call(f'pip install {pips}', shell=True)
-        # Post Instalations
-        if (len(post_scripts) > 0):
-            for script in post_scripts:
-                file = f"sh src/scripts/{script}"
-                if os.path.exists(file):
-                    subprocess.call(file, shell=True)
+        steps = process_selection(answers)
+        # Post(paso 4) Instalación requerida por algunas dependencias por defecto
+        steps[STEP.POST] = FileHandler(default_file='defaults.json').get_post_installations() + steps[STEP.POST]
+        #exit(pprint(steps))
+        for [step, installations] in steps.items():
+            if len(installations) > 0:
+                if isinstance(installations, list):
+                    updatable = False # Comprobar si hace falta apt-get update después de un script
+                    for script in installations:
+                        cmd = run_with(script)
+                        if 'addrepo' in script: # Si algún script agrega a repo
+                            updatable = True    # entonces es updatable.
+                        file = f"{self.SCRIPT_PATH}/scripts/{script}" # Path absoluto para que funcione el script solo
+                        if os.path.exists(file):
+                            subprocess.call(cmd + ' ' + file, shell=True)
+
+                    if updatable:
+                        subprocess.call("sudo apt-get update", shell=True)
+                elif is_string(installations):
+                    cmd = 'sudo apt-get install -y'
+                    if step == STEP.PIP:
+                        cmd = 'pip install'
+                    subprocess.call(f"{cmd} {installations}", shell=True)
 
 #click
 @click.command()
@@ -138,7 +150,7 @@ def run(menu_file):
     Menú principal para Ultimate Ubuntu Distros,
     Instala programas marcados por el usuario de una manera fácil y rápida.
     """
-    return Main(menu_file).run()
+    return SecondStep(menu_file).run()
 
 # Inicio del CLi ## REF: https://es.stackoverflow.com/questions/32165/qué-es-if-name-main
 if __name__ == '__main__':

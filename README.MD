@@ -60,4 +60,4 @@ dicho script.
 > 1. **`pre`**.
 > 2. **`apt`**.
 > 3. **`pip`**.
-> 4. **`checked`**.
+> 4. **`post`**.
