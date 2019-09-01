@@ -77,7 +77,7 @@
           "message2": "¿Que herramientas de peatonalización deseas instalar?",
           "programs": {
             "Albert": {"apt": "albert", "pre": "addrepo-albert.sh"},
-            "GNOME Tweaks": {"apt": "gnome-tweaks", "checked": true},
+            "GNOME Tweaks": {"apt": "gnome-tweaks chrome-gnome-shell", "checked": true},
             "Grub Customizer": {"apt": "grub-customizer", "pre": "addrepo-grub-customizer.sh"},
             "Plank": {"apt": "plank"},
             "Variety": {"apt": "variety", "pre": "addrepo-variety.sh"},
