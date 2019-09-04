@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import emoji
-#from colors import *  # ANSI colors
 from subprocess import call
 from os.path import exists
 from os import environ
 from questionary import confirm, text
-#from shutil import which
 
 email = ''
 username = environ['USERNAME']
